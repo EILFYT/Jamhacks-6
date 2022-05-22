@@ -8,10 +8,7 @@ import main.objects.BlockType;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.security.Key;
+import java.io.*;
 
 public class BuilderState extends GameState {
 
@@ -119,7 +116,9 @@ public class BuilderState extends GameState {
     }
 
     public void saveFile() {
-        File file = new File("src/resources/savedfiles/newsave.map");
+        InputStream is = this.getClass().getResourceAsStream("src/resources/cfg.cfg");
+        BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        File file = new File("maps/playermademaps/" + br.lines().count() + 1 + ".map");
         try(FileWriter fw = new FileWriter(file)) {
             fw.write(maxColumn + "\n");
             fw.write(maxRow + "\n");
@@ -132,14 +131,20 @@ public class BuilderState extends GameState {
                         sb.append(0).append(" ");
                     else if (block2.getType() == BlockType.BRICK )sb.append(1).append(" ");
                     else if (block2.getType() == BlockType.FINSHING )sb.append(2).append(" ");
-                    else if (block2.getType() == BlockType.STARTING )sb.append(3).append(" ");
+                    else if (block2.getType() == BlockType.STARTING)sb.append(3).append(" ");
                 }
                 sb.append("\n");
                 fw.write(sb.toString());
             }
         } catch (IOException ignored) {
         }
-    }
+
+                try(FileWriter fw = new FileWriter("src/resources/cfg.cfg")) {
+                    fw.write("maps/playermademaps/" + br.lines().count() + ".map");
+                } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 }
 
 

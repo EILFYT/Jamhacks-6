@@ -17,9 +17,9 @@ public class Lv1ST extends GameState {
     private Player player = new Player(66, 90);
     private Map map;
   //  private Block b1, b2, b3;
-    public Lv1ST(GameStateManager manager) {
+    public Lv1ST(GameStateManager manager, String path) {
         super(manager);
-        map = new Map("/1-1.map");
+        map = new Map(path);
         GameState.xOffset = xOffset2;
         GameState.yOffset = yOffset2;
 //        b = new Block[6];

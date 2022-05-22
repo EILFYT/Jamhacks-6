@@ -71,7 +71,7 @@ public class MenuST extends GameState {
             if (currentSelection < 0) currentSelection = options.length - 1;
         } else if (key == KeyEvent.VK_ENTER) {
             if (currentSelection == 0) {
-            manager.states.push(new Lv1ST(manager));
+            manager.states.push(new LevelSelectState(manager));
             } else if (currentSelection == 1) {
                 manager.states.push(new BuilderSizeSelectorState(manager));
             } else {
